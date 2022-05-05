@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Add a new Sport Field</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+{% block form %}
+<div class="container">
+	<form action="" method="post" id="add-field-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-dark">Add</button>
+	</form>
+</div>
+{% endblock %}
+{% endblock %}
+
+{% block map %}
+var map = L.map('map').setView([52.2, 21], 10);
+{% endblock %}
+
+{% block mapcords %}
+const id_name = document.querySelector("#id_name");
+const id_latitude = document.querySelector("#id_latitude");
+const id_longitude = document.querySelector("#id_longitude");
+
+function onMapClick(e) {
+	popup
+		.setLatLng(e.latlng)
+		.setContent('Coordinates<br>' + e.latlng.toString())
+		.openOn(map);
+		id_latitude.value = (parseFloat(e.latlng.toString().slice(7, 16)))
+		id_longitude.value = (parseFloat(e.latlng.toString().slice(17)))
+}
+{% endblock %}

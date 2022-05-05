@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+    <h3>Sport Field Reservations</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col-1">ID</th>
+            <th class="col-1">Date</th>
+            <th class="col-2">Sport Field Name</th>
+            <th class="col-4">Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in reservations %}
+        <tr>
+            <th class="col-1">{{ r.id }}</th>
+            <td class="col-1">{{ r.date }}</td>
+            <td class="col-2">{{ r.sport_field.name }}</td>
+            <td class="col-4">{{ r.comment }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Sport Field Details</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+	<table class="table">
+		<thead>
+		<tr class="d-flex">
+			<th scope="col" class="col-1">#</th>
+			<th scope="col" class="col-3">Name</th>
+			<th scope="col" class="col-2">Size</th>
+			<th scope="col" class="col-2">Disciplines</th>
+			<th scope="col" class="col-1" colspan="4">Lighting</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="d-flex">
+			<th scope="row" class="col-1">{{ sport_field.id }}</th>
+			<td class="col-3">
+				{{ sport_field.name }}
+			</td>
+			<td class="col-2">{{ sport_field.size}}</td>
+			<td class="col-2">
+				<ul>
+					{% for sd in sfd %}
+					<li>
+						{{ sd.name }}
+					</li>
+					{% endfor %}
+				</ul>
+			</td>
+			{% if sport_field.lighting %}
+			<td class="col-1" style="color:green;">&#9745;</td>
+			{% else %}
+			<td class="col-1" style="color:red;">&#9746;</td>
+			{% endif %}
+			<td class="col-1">
+				<a href="/sport-field/edit/{{ sport_field.id }}/">edit</a>
+			</td>
+			<td class="col-1">
+				<a href="/sport-field/delete/{{ sport_field.id }}/">delete</a>
+			</td>
+			<td class="col-1">
+				<a href="/sport-field/book/{{ sport_field.id }}/">book</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+
+{% block map %}
+var map = L.map('map').setView([{{ x }}, {{ y }}], 18);
+{% endblock %}

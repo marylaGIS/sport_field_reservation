@@ -1,0 +1,23 @@
+{% extends "add-sport-field.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Edit Sport Field</h3>
+	<p>Fill out the form with the new data:</p>
+</div>
+{% endblock %}
+
+{% block form %}
+<div class="container-sm">
+	<form action="" method="post" id="edit-field-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-dark">Edit</button>
+<!--		<input type="submit" value="Edit" class="btn btn-dark">-->
+	</form>
+</div>
+{% endblock %}
+
+{% block map %}
+var map = L.map('map').setView([{{ x }}, {{ y }}], 18);
+{% endblock %}

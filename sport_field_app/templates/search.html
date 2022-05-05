@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+    <h3>Search Sport Field by Discipline</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="", method="post" id="search-form">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+</div>
+
+<div class="container-sm">
+<ul class="list-group">
+    {% if sport_fields %}
+        {% for sf in sport_fields %}
+        <li class="list-group-item"><a href="/sport-field/{{ sf.id }}">{{ sf.name }}</a></li>
+        {% empty %}
+        <li>No such field in the database.</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+</div>
+{% endblock %}

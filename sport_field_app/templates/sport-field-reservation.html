@@ -1,0 +1,26 @@
+{% extends "add-sport-field.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Book Sport Field</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+	<p>Sport Field: {{ name }}</p>
+</div>
+{% block form %}
+<div class="container-sm">
+	<form action="" method="post" id="book-field-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-dark">Book</button>
+	</form>
+</div>
+{% endblock %}
+{% endblock %}
+
+{% block map %}
+var map = L.map('map').setView([{{ x }}, {{ y }}], 18);
+{% endblock %}
