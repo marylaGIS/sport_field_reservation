@@ -52,6 +52,20 @@
 		</tbody>
 	</table>
 </div>
+<br>
+<div class="container-sm">
+	<p>Current reservations:</p>
+	{% if sport_field_reservations %}
+	<ul>
+		{% for sfr in sport_field_reservations %}
+		<li>{{ sfr.date }} {{sfr.comment }}</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p>Sport field free to book</p>
+	{% endif %}
+	<p>Check out the <a href="/calendar">calendar</a>.</p>
+</div>
 {% endblock %}
 
 {% block map %}

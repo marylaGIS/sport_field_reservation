@@ -30,12 +30,15 @@ class SportFieldDetailsView(View):
 
         sfd = sport_field.disciplines.all()
 
+        sport_field_reservations = SportFieldReservation.objects.filter(sport_field=sport_field)
+
         latitude = sport_field.latitude
         longitude = sport_field.longitude
         ctx = {"sport_field": sport_field,
                "sfd": sfd,
                "x": latitude,
-               "y": longitude}
+               "y": longitude,
+               "sport_field_reservations": sport_field_reservations}
         return render(request, "sport-field-details.html", ctx)
 
 
