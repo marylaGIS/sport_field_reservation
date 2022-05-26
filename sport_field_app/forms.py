@@ -29,7 +29,12 @@ class SportFieldReservationForm(forms.ModelForm):
         fields = ["date", "comment"]
 
 
-class SearchForm(forms.Form):
+class SearchByNameForm(forms.Form):
+    name = forms.CharField(label="Sport Field Name", max_length=128,
+                           help_text="Search for fields containing given text string")
+
+
+class SearchByDisciplineForm(forms.Form):
     discipline = forms.ChoiceField(choices=OPTIONS)
 
 

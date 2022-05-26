@@ -5,7 +5,8 @@ from django.core.paginator import Paginator
 from datetime import date
 
 from .models import SportField, SportDiscipline, SportFieldReservation
-from .forms import AddSportFieldForm, EditSportFieldForm, SportFieldReservationForm, SearchForm, ContactForm
+from .forms import AddSportFieldForm, EditSportFieldForm, SportFieldReservationForm, \
+    SearchByNameForm, SearchByDisciplineForm, ContactForm
 
 
 class IndexView(View):
@@ -141,17 +142,33 @@ class AddFieldView(View):
 
 class SearchView(View):
     def get(self, request):
-        form = SearchForm()
-        return render(request, "search.html", {"form": form})
+        name_form = SearchByNameForm()
+        discipline_form = SearchByDisciplineForm()
+        ctx = {"name_form": name_form,
+               "discipline_form": discipline_form}
+        return render(request, "search.html", ctx)
 
     def post(self, request):
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            discipline = form.cleaned_data["discipline"]
-            sport_fields = SportField.objects.filter(disciplines=discipline)
-            form = SearchForm()
+        name_form = SearchByNameForm(request.POST)
+        if name_form.is_valid():
+            name = name_form.cleaned_data["name"]
+            sport_fields = SportField.objects.filter(name__contains=name)
+            name_form = SearchByNameForm()
+            discipline_form = SearchByDisciplineForm()
             ctx = {"sport_fields": sport_fields,
-                   "form": form}
+                   "name_form": name_form,
+                   "discipline_form": discipline_form}
+            return render(request, "search.html", ctx)
+
+        discipline_form = SearchByDisciplineForm(request.POST)
+        if discipline_form.is_valid():
+            discipline = discipline_form.cleaned_data["discipline"]
+            sport_fields = SportField.objects.filter(disciplines=discipline)
+            discipline_form = SearchByDisciplineForm()
+            name_form = SearchByNameForm()
+            ctx = {"sport_fields": sport_fields,
+                   "discipline_form": discipline_form,
+                   "name_form": name_form}
             return render(request, "search.html", ctx)
 
 

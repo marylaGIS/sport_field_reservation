@@ -2,22 +2,32 @@
 
 {% block title %}
 <div class="container-sm">
-    <h3>Search Sport Field by Discipline</h3>
+    <h3>Search Sport Field</h3>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <form action="", method="post" id="search-form">
+    <form action="" method="post" id="search-by-name-form">
         {% csrf_token %}
-        {{ form }}
+        {{ name_form }}
         <button type="submit" class="btn btn-dark">Search</button>
     </form>
 </div>
 
+<div class="container">
+    <form action="" method="post" id="search-by-discipline-form">
+        {% csrf_token %}
+        {{ discipline_form }}
+        <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+</div>
+
+<br>
 <div class="container-sm">
 <ul class="list-group">
     {% if sport_fields %}
+        <p>Search Results:</p>
         {% for sf in sport_fields %}
         <li class="list-group-item"><a href="/sport-field/{{ sf.id }}">{{ sf.name }}</a></li>
         {% empty %}
