@@ -13,8 +13,8 @@
         <tr>
             <th class="col-1">ID</th>
             <th class="col-1">Date</th>
-            <th class="col-2">Sport Field Name</th>
-            <th class="col-4">Comment</th>
+            <th class="col-1">Sport Field Name</th>
+            <th class="col-6">Comment</th>
         </tr>
         </thead>
         <tbody>
@@ -22,8 +22,9 @@
         <tr>
             <th class="col-1">{{ r.id }}</th>
             <td class="col-1">{{ r.date }}</td>
-            <td class="col-2">{{ r.sport_field.name }}</td>
-            <td class="col-4">{{ r.comment }}</td>
+            <td class="col-1">
+                <a href="/sport-field/{{ r.sport_field.id }}/">{{ r.sport_field.name }}</a></td>
+            <td class="col-6">{{ r.comment }}</td>
         </tr>
         {% endfor %}
         </tbody>
