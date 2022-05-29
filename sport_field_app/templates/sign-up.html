@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Sign Up for Free!</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="container-sm">
+    <form action="" method="post" id="sign-up-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-dark">Sign Up</button>
+    </form>
+</div>
+{% endblock %}

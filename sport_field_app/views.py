@@ -1,12 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.core.paginator import Paginator
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from datetime import date
 
 from .models import SportField, SportDiscipline, SportFieldReservation
 from .forms import AddSportFieldForm, EditSportFieldForm, SportFieldReservationForm, \
-    SearchByNameForm, SearchByDisciplineForm, ContactForm
+    SearchByNameForm, SearchByDisciplineForm, ContactForm, \
+    SignUpForm
 
 
 class IndexView(View):
@@ -153,7 +159,6 @@ class SearchView(View):
         if name_form.is_valid():
             name = name_form.cleaned_data["name"]
             sport_fields = SportField.objects.filter(name__contains=name)
-            name_form = SearchByNameForm()
             discipline_form = SearchByDisciplineForm()
             ctx = {"sport_fields": sport_fields,
                    "name_form": name_form,
@@ -183,3 +188,32 @@ class ContactView(View):
     def get(self, request):
         form = ContactForm()
         return render(request, "contact.html", {"form": form})
+
+
+class SignUpView(View):
+    def get(self, request):
+        form = SignUpForm()
+        return render(request, "sign-up.html", {"form": form})
+
+    def post(self, request):
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            if not User.objects.filter(username=username).exists():
+                form.save()
+                messages.success(request, 'Account created successfully. Now you can sign in.')
+        else:
+            messages.error(request, 'User already exists!')
+            return redirect("sign-up")
+
+        return redirect("sign-in")
+
+
+class SignInView(LoginView):
+    template_name = "sign-in.html"
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("/")

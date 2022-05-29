@@ -18,7 +18,9 @@ from django.urls import path
 
 from sport_field_app.views import IndexView, SportFieldListView, SportFieldDetailsView, \
     EditSportFieldView, AddFieldView, DeleteSportFieldView, BookSportFieldView, \
-    SearchView, CalendarView, ContactView
+    SearchView, CalendarView, ContactView, \
+    SignUpView, SignInView, LogoutView
+
 # from sport_field_app import views
 
 urlpatterns = [
@@ -33,4 +35,7 @@ urlpatterns = [
     path('search/', SearchView.as_view()),
     path('calendar/', CalendarView.as_view()),
     path('contact/', ContactView.as_view()),
+    path('sign-up/', SignUpView.as_view(), name="sign-up"),
+    path('sign-in/', SignInView.as_view(), name="sign-in"),
+    path('logout/', LogoutView.as_view(), name="logout"),
 ]

@@ -1,5 +1,9 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from .models import SportDiscipline, SportFieldReservation
+
 
 OPTIONS = []
 sport_disciplines = SportDiscipline.objects.all()
@@ -44,3 +48,9 @@ class ContactForm(forms.Form):
     email = forms.EmailField(max_length=64)
     subject = forms.CharField(max_length=128)
     message = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+
+
+class SignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields

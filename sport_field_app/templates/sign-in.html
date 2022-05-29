@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Sign In</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if user.is_authenticated %}
+<div class="container-sm">
+    <p>You're logged as: {{ user.username}}</p>
+    <a href="/logout"><button class="btn btn-dark">Logout</button></a>
+</div>
+{% else %}
+<div class="container-sm">
+    <form action="" method="post" id="sign-in-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-dark">Sign In</button>
+    </form>
+</div>
+<br>
+<div class="container-sm">
+    <p>Don't have an account? Create if for free <a href="/sign-up">here</a>.</p>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -36,10 +36,13 @@
 							<a class="nav-link" href="/add-sport-field">Add Field</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/search">Search Field</a>
+							<a class="nav-link" href="/search">Search</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/calendar">Calendar</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/sign-in">Sign In</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/contact">Contact</a>
@@ -60,6 +63,14 @@
 
 		<footer class="footer">
 			<div class="container">
+				<span>
+					{% if user.is_anonymous %}
+					<a href="{% url 'sign-in' %}">Sign In</a>
+					{% else %}
+					Logged in as a: {{ user.username }}
+					<a href="/logout/">Logout</a>
+					{% endif %}
+				</span>
 				<span class="text-muted">
 					<a href="https://marylagis.github.io/" target=_blank">&copy; marylaGIS 2022</a>
 				</span>
