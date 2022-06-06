@@ -24,16 +24,17 @@
 </div>
 
 <br>
-<div class="container-sm">
-<ul class="list-group">
-    {% if sport_fields %}
-        <p>Search Results:</p>
-        {% for sf in sport_fields %}
-        <li class="list-group-item"><a href="/sport-field/{{ sf.id }}">{{ sf.name }}</a></li>
-        {% empty %}
-        <li>No such field in the database.</li>
-        {% endfor %}
-    {% endif %}
-</ul>
+
+<div class="container-sm" >
+    <p>Search Results:</p>
+    <div style="overflow-y: scroll; height:200px;">
+        <ul class="list-group">
+            {% for sport_field in sport_fields %}
+            <li class="list-group-item">
+                <a href="/sport-field/{{ sport_filed.id }}">{{ sport_field.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
+
 {% endblock %}
