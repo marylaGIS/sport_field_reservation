@@ -159,6 +159,7 @@ class SearchView(View):
         if name_form.is_valid():
             name = name_form.cleaned_data["name"]
             sport_fields = SportField.objects.filter(name__contains=name)
+            name_form = SearchByNameForm()
             discipline_form = SearchByDisciplineForm()
             ctx = {"sport_fields": sport_fields,
                    "name_form": name_form,
