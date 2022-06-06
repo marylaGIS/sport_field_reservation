@@ -37,7 +37,8 @@ class SportFieldDetailsView(View):
 
         sfd = sport_field.disciplines.all()
 
-        sport_field_reservations = SportFieldReservation.objects.filter(sport_field=sport_field)
+        sport_field_reservations = SportFieldReservation.objects. \
+            filter(sport_field=sport_field).filter(date__gte=date.today())
 
         latitude = sport_field.latitude
         longitude = sport_field.longitude
