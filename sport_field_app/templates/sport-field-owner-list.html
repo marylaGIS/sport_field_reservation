@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Sport Field Owner List</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+	<ul class="list-group">
+		{% for sport_field in page_obj %}
+		<li class="list-group-item list-group-item-action">
+			<a href="/owner/{{ sport_field.id }}">{{ sport_field.name }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="container-sm">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+            {% endif %}
+            <li class="page-item active"><a class="page-link" href="?page={{ page_obj.page_number }}">{{ page_obj.number }}</a></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+            {% endif %}
+
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container-sm">
+	<p>Can't find a sport field owner you're looking for? <span><a href="/add-owner">
+        Add owner!</a></span></p>
+</div>
+{% endblock %}

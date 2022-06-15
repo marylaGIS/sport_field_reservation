@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+<div class="container-sm">
+	<h3>Sport Field Owner Details</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+	<p>Sport Field Owner Name:</p>
+	<strong>{{ sport_field_owner.name }}</strong>
+	<br><br>
+	<p>List of sport fields managed by the owner:</p>
+	<ul>
+		{% for sf in sport_fields %}
+		<li><a href="/sport-field/{{ sf.id }}">{{ sf.name }}</a></li>
+		{% empty %}
+		The owner doesn't manage any sport fields.
+		{% endfor %}
+	</ul>
+	{% block form %}
+	<div class="container-sm">
+	<form action="" method="post" id="edit-owner-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-dark">Add</button>
+	</form>
+	</div>
+	{% endblock %}
+</div>
+{% endblock %}
+
+{% block map %}
+var map = L.map('map').setView([52.2, 21], 10);
+{% endblock %}
